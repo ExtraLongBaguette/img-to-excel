@@ -10,12 +10,12 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv, "hi:o:s:", ["ifile=", "ofile=","size="])
     except getopt.GetoptError:
-        print("Usage: img-to-excel.py -i <input_image> -o <output_file>")
+        print("Usage: img-to-excel.py -i <input_image> -o <output_file> [-s <size_in_xlsx>]")
         sys.exit(2)
 
     for opt, arg in opts:
         if opt == "-h":
-            print("img-to-excel.py -i <input_image> -o <output_file>")
+            print("img-to-excel.py -i <input_image> -o <output_file> [-s <size_in_xlsx>]")
             sys.exit()
         elif opt in ("-i", "--ifile"):
             input_image = arg
@@ -25,17 +25,20 @@ def main(argv):
             size = int(arg)
 
     if not ".jpg" in os.path.splitext(input_image):
-        print("img-to-excel.py -i <input_image> -o <output_file>")
+        print("img-to-excel.py -i <input_image> -o <output_file> [-s <size_in_xlsx>]")
         print("Use *.jpg image as an input")
         sys.exit()
     if not os.path.exists(input_image):
         print(input_image + " does not exist")
         sys.exit()
     if not ".xlsx" in os.path.splitext(output_file):
-        print("img-to-excel.py -i <input_image> -o <output_file>")
+        print("img-to-excel.py -i <input_image> -o <output_file> [-s <size_in_xlsx>]")
         print("Use *.xlsx file as a output")
         sys.exit()
-    if size > max_size:
+
+    if size < 1:
+        size = max_size
+    elif size > max_size:
         print("The size is larger than the default limit (256)")
         print("Larger files are slower and may not work")
         i = ""
