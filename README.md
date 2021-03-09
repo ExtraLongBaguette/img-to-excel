@@ -1,5 +1,6 @@
 # img-to-excel
 Small tool to convert images to colored .xlsx documents
+![Screenshot](/Screenshot.png)
 ## Dependencies
 ```
 pip install pillow
